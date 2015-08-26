@@ -42,22 +42,15 @@ Instruction:
 7. Type command : psql
 - To login to Postgre Database
 
-8. Type query: CREATE DATABASE tournament
-- To create a database named "tournament"
-- Skip this step if the database is already created
-
-9. Type command: \c tournament
-- To connect to the tournament database.
-
-10. Type command: \i tournament.sql
+8. Type command: \i tournament.sql
 - To import the script - tournament.sql into the database to create the database schema (tables, views and functions).
 - Skip this setp if the database schema is already created.
 - Execute some query to test if the schema is created correctly. Eg: Query select * from tournament_players; should return result with 0 rows (currently no player is registered)
 
-11. Press "CTRL+D"
+9. Press "CTRL+D"
 - To exit psql
 
-12. Type command: python tournament_test.py
+10. Type command: python tournament_test.py
 - To run the Python script tournament_test.py.
 - The result should be as follow :
 Match records deleted!
