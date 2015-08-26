@@ -38,7 +38,7 @@ def countPlayers():
     """Returns the number of players currently registered."""
     query = "select count(*) as player_count from tournament_player;"
     result = ExecuteQuery(query,fetch_record=True)
-    return result
+    return result[0][0]
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
@@ -77,7 +77,7 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    ExecuteQuery("select f_reportmatch(%s,$s);",[winner,loser],commit=True)
+    ExecuteQuery("select f_reportmatch(%s,%s);",[winner,loser],commit=True)
  
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.

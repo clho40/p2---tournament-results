@@ -28,11 +28,12 @@ CREATE TABLE tournament_player (
 -- match table
 CREATE TABLE tournament_matches (
 	id serial PRIMARY KEY,
-	contestant_1 int references tournament_player(id) NOT NULL,
-	contestant_2 int references tournament_player(id) NOT NULL,
+	contestant_1 int references tournament_player(id) NOT NULL ON DELETE CASCADE,
+	contestant_2 int references tournament_player(id) NOT NULL ON DELETE CASCADE,
 	match_winner int references tournament_player(id),
 	updated_on timestamp DEFAULT current_timestamp,
-	created_on timestamp DEFAULT current_timestamp
+	created_on timestamp DEFAULT current_timestamp,
+	CHECK (contestant_1 <> contestant_2)
 );
 
 -- player standing view
