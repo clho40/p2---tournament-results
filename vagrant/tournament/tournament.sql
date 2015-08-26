@@ -28,9 +28,9 @@ CREATE TABLE tournament_player (
 -- match table
 CREATE TABLE tournament_matches (
 	id serial PRIMARY KEY,
-	contestant_1 int references tournament_player(id) NOT NULL ON DELETE CASCADE,
-	contestant_2 int references tournament_player(id) NOT NULL ON DELETE CASCADE,
-	match_winner int references tournament_player(id),
+	contestant_1 int references tournament_player(id) ON DELETE CASCADE,
+	contestant_2 int references tournament_player(id) ON DELETE CASCADE,
+	match_winner int references tournament_player(id) ON DELETE CASCADE,
 	updated_on timestamp DEFAULT current_timestamp,
 	created_on timestamp DEFAULT current_timestamp,
 	CHECK (contestant_1 <> contestant_2)
@@ -55,9 +55,8 @@ CREATE OR REPLACE FUNCTION f_reportmatch(winner int, loser int)
 			update tournament_player set match_count=match_count+1,updated_on=current_timestamp where id=loser;
 			--update match result in match table. since the function is taking winner's and loser's id instead of 
 			--match id, it is neccessary to look for the pair.
-			update tournament_match set match_winner=winner 
-			where (contestant_1=winner and contestant_2=loser) 
-			or (contestant_1=loser and contestant_2=winner);
+			update tournament_matches set match_winner=winner 
+			where ((contestant_1=winner and contestant_2=loser) or (contestant_1=loser and contestant_2=winner));
 			r_result := 'OK';
 		EXCEPTION WHEN OTHERS THEN
 		-- error message. however the tournament_test.py is not expecting error message from tournament.py

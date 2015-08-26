@@ -77,7 +77,7 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    ExecuteQuery("select f_reportmatch(%s,%s);",[winner,loser],commit=True)
+    ExecuteQuery("select f_reportmatch(%s,%s);",(winner,loser),commit=True)
  
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
@@ -98,4 +98,3 @@ def swissPairings():
     query = "SELECT m.contestant_1,p1.name,m.contestant_2,p2.name from tournament_matches m, tournament_player p1, tournament_player p2 where p1.id=m.contestant_1 and p2.id=m.contestant_2;"
     result = ExecuteQuery(query,fetch_record=True)
     return result
-
